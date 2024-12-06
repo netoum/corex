@@ -1,0 +1,32 @@
+{
+    "name": "corex",
+    "version": "0.4.2",
+    "license": "MIT",
+    "type": "module",
+    "module": "hooks/dist/index.mjs",
+    "types": "hooks/dist/index.d.ts",
+    "files": [
+      "hooks/"
+    ],
+    "dependencies": {
+      "@zag-js/accordion": "^0.60.0",
+      "@zag-js/clipboard": "^0.60.0",
+      "@zag-js/collapsible": "^0.60.0",
+      "@zag-js/combobox": "^0.60.0",
+      "@zag-js/dialog": "^0.60.0",
+      "@zag-js/menu": "^0.60.0",
+      "@zag-js/pin-input": "^0.60.0",
+      "@zag-js/popover": "^0.60.0",
+      "@zag-js/tooltip": "^0.60.0",
+      "@zag-js/types": "^0.60.0"
+    },
+    "devDependencies": {
+      "@types/phoenix_live_view": "^0.18.5",
+      "prettier": "^3.3.2",
+      "tsup": "^8.1.0",
+      "typescript": "^5.5.3"
+    },
+    "scripts": {
+        "build": "npx tsup hooks/index.ts --format cjs,esm --dts --out-dir ../hooks/dist/"
+      }
+  }
