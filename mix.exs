@@ -7,7 +7,8 @@ defmodule Corex.MixProject do
       version: "0.1.0",
       elixir: "~> 1.17",
       start_permanent: Mix.env() == :prod,
-      deps: deps()
+      deps: deps(),
+      package: package()
     ]
   end
 
@@ -18,6 +19,20 @@ defmodule Corex.MixProject do
     ]
   end
 
+  defp package do
+    [
+      licenses: ["MIT"],
+      files: [
+        "hooks",
+        "lib",
+        "mix.exs",
+        "priv/static",
+        "package-lock.json",
+        "package.json",
+        "tsconfig.json"
+      ]
+    ]
+  end
   # Run "mix help deps" to learn about dependencies.
   defp deps do
     [
