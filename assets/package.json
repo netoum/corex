@@ -1,0 +1,30 @@
+
+{
+    "name": "corex",
+"version": "1.0.0",
+"main": "dist/index.js",
+"bin": "dist/index.js",
+"scripts": {
+  "build:hooks": "npx tsup hooks/index.ts --format cjs,esm --dts --out-dir ../priv/static",
+  "build:pkg": "pkg . --debug --compress Brotli --no-bytecode --public-packages \"*\" --public"
+},
+"author": "",
+"license": "ISC",
+"description": "",
+"dependencies": {
+  "@types/phoenix_live_view": "^0.18.5",
+  "@zag-js/dialog": "^0.78.2",
+  "@zag-js/types": "^0.78.2"
+},
+"devDependencies": {
+  "tsup": "^8.1.0",
+  "typescript": "^5.5.3"
+},
+"pkg": {
+  "targets": [
+    "node14-linux-x64",
+    "node14-linux-arm64"
+  ],
+  "outputPath": "dist"
+}
+}
