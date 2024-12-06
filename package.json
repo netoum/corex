@@ -27,6 +27,6 @@
       "typescript": "^5.5.3"
     },
     "scripts": {
-        "build": "npx tsup hooks/index.ts --format cjs,esm --dts --out-dir ../hooks/dist/"
+        "build": "npx tsup hooks/index.ts --format cjs,esm --dts --out-dir priv/static/"
       }
   }
