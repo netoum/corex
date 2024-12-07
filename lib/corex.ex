@@ -194,7 +194,7 @@ defmodule Corex do
       ]
 
       bin_path()
-      |> System.cmd(["node -v"] ++ args ++ extra_args, opts)
+      |> System.cmd(args ++ extra_args, opts)
       |> elem(1)
     end
 
