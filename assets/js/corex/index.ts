@@ -1,4 +1,4 @@
-import Dialog from "./dialog";
+import Dialog from "./hooks/dialog";
 
 const Hooks = {
   Dialog

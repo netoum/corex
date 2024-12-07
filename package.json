@@ -1,0 +1,26 @@
+{
+  "name": "corex",
+  "version": "0.0.1",
+  "description": "The official JavaScript client for the Corex web framework.",
+  "license": "MIT",
+  "module": "./priv/static/corex.mjs",
+  "main": "./priv/static/corex.cjs.js",
+  "unpkg": "./priv/static/corex.min.js",
+  "jsdelivr": "./priv/static/corex.min.js",
+  "exports": {
+    "import": "./priv/static/corex.mjs",
+    "require": "./priv/static/corex.cjs.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/netoum/corex.git"
+  },
+  "author": "Karim Semmoud <karim.semmoud@netoum.com> (https://www.corexframework.org)",
+  "files": [
+    "README.md",
+    "LICENSE.md",
+    "package.json",
+    "priv/static/*",
+    "assets/js/corex/*"
+  ]
+}

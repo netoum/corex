@@ -1,4 +1,4 @@
-import type { Machine } from "@zag-js/core";
+import type { Machine } from "../@zag-js/core";
 
 interface ComponentInterface<Api> {
   el: HTMLElement;

@@ -1,4 +1,4 @@
-import { createNormalizer } from "@zag-js/types";
+import { createNormalizer } from "../@zag-js/types";
 
 type Attribute = {
   name: string;
