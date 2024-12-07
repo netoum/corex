@@ -162,7 +162,7 @@ defmodule Corex do
 
       with true <- File.exists?(path),
            {out, 0} <- System.cmd(path, ["--help"]),
-           [vsn] <- Regex.run(~r/corexcss v([^\s]+)/, out, capture: :all_but_first) do
+           [vsn] <- Regex.run(~r/corex v([^\s]+)/, out, capture: :all_but_first) do
         {:ok, vsn}
       else
         _ -> :error
