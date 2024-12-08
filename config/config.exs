@@ -12,27 +12,24 @@ config :phoenix,
   if Mix.env() == :dev do
     esbuild = fn args ->
       [
-        args: ~w(./js/corex ./node_modules/@zag-js/core --bundle) ++ args,
+        args: ~w(./js/corex --bundle) ++ args,
         cd: Path.expand("../assets", __DIR__),
         env: %{"NODE_PATH" => Path.expand("../deps", __DIR__)}
 
       ]
     end
 
+
   config :esbuild,
     version: "0.17.11",
-    module: esbuild.(~w(--format=esm --sourcemap --outdir=../priv/static)),
-    main: esbuild.(~w(--format=cjs --sourcemap --outdir=../priv/static)),
+    module: esbuild.(~w(--format=esm --sourcemap --outfile=../priv/static/corex.mjs)),
+    main: esbuild.(~w(--format=cjs --sourcemap --outfile=../priv/static/corex.cjs.js)),
     cdn:
       esbuild.(
-        ~w(--target=es2016 --format=iife --global-name=Corex --outdir=../priv/static)
+        ~w(--target=es2016 --format=iife --global-name=Corex --outfile=../priv/static/corex.js)
       ),
     cdn_min:
       esbuild.(
-        ~w(--target=es2016 --format=iife --global-name=Corex --minify --outdir=../priv/static)
+        ~w(--target=es2016 --format=iife --global-name=Corex --minify --outfile=../priv/static/corex.min.js)
       )
-    # zagjs:
-    # zagjs.(
-    #     ~w(--format=esm --sourcemap --outdir=../priv/static/@zag-js)
-    #   )
 end
