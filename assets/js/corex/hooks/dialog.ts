@@ -64,14 +64,6 @@ export default {
         if (this.el.dataset.onOpenChange) {
           this.pushEvent(this.el.dataset.onOpenChange, details);
         }
-        // if (details.open === false && this.el.dataset.onClose) {
-        //   try {
-
-        //     LiveSocket.execJS(this.el , this.el.dataset.onClose);
-        //   } catch (error) {
-        //     console.error("Error executing LiveView JS command:", error);
-        //   }
-        // }
       }
     };
   },
