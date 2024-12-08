@@ -3,13 +3,13 @@
   "version": "0.0.1",
   "description": "The official JavaScript client for the Corex web framework.",
   "license": "MIT",
-  "module": "./priv/static/js/corex.mjs",
-  "main": "./priv/static/js/corex.cjs.js",
-  "unpkg": "./priv/static/js/corex.min.js",
-  "jsdelivr": "./priv/static/js/corex.min.js",
+  "module": "./priv/static/corex.mjs",
+  "main": "./priv/static/corex.cjs.js",
+  "unpkg": "./priv/static/corex.min.js",
+  "jsdelivr": "./priv/static/corex.min.js",
   "exports": {
-    "import": "./priv/static/js/corex.mjs",
-    "require": "./priv/static/js/corex.cjs.js"
+    "import": "./priv/static/corex.mjs",
+    "require": "./priv/static/corex.cjs.js"
   },
   "repository": {
     "type": "git",
@@ -20,8 +20,7 @@
     "README.md",
     "LICENSE.md",
     "package.json",
-    "priv/static/js/*",
-    "assets/js/corex/*",
-    "priv/static/node_modules/@zag-js/*"
+    "priv/static/*",
+    "assets/js/corex/*"
   ]
 }
