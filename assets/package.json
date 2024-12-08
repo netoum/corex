@@ -21,8 +21,8 @@
     "tsup": "^8.1.0"
   },
   "dependencies": {
-    "@zag-js/dialog": "^0.78.0",
-    "@zag-js/types": "^0.78.0",
+    "@zag-js/dialog": "^0.78.2",
+    "@zag-js/types": "^0.78.2",
     "@types/phoenix_live_view": "^0.18.5"
   }
 }
