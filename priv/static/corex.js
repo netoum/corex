@@ -3636,7 +3636,7 @@ var Corex = (() => {
       return {
         id: this.el.id,
         trapFocus: true,
-        open: true,
+        open: false,
         modal: true,
         "open.controlled": getBooleanOption(this.el, "open.controlled"),
         role: getOption(this.el, "role", ["dialog", "alertdialog"]),
