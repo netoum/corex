@@ -15,5 +15,14 @@
     "./": "./js/corex/"
   },
   "author": "Karim Semmoud <karim.semmoud@netoum.com> (https://www.corexframework.org)",
-  "sideEffects": false
+  "sideEffects": false,
+  "devDependencies": {
+    "typescript": "^5.5.3",
+    "tsup": "^8.1.0"
+  },
+  "dependencies": {
+    "@zag-js/dialog": "^0.78.0",
+    "@zag-js/types": "^0.78.0",
+    "@types/phoenix_live_view": "^0.18.5"
+  }
 }

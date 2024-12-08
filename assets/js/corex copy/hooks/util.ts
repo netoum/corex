@@ -1,4 +1,4 @@
-import { createNormalizer } from "@zag-js/types";
+import { createNormalizer } from "../@zag-js/types";
 
 type Attribute = {
   name: string;
@@ -134,24 +134,24 @@ export const getBooleanOption = (el: HTMLElement, name: string) => {
   return el.dataset[name] === "true" || el.dataset[name] === "";
 };
 
-// export const getAttributes = (root: HTMLElement, name: string) => {
-//   const part = root.querySelector<HTMLElement>(`[data-part='${name}']`);
-//   if (!part) return;
+export const getAttributes = (root: HTMLElement, name: string) => {
+  const part = root.querySelector<HTMLElement>(`[data-part='${name}']`);
+  if (!part) return;
 
-//   const attrs = [];
-//   for (const attr of part.attributes) {
-//     if (attr.name.startsWith("data-") || attr.name.startsWith("aria-")) {
-//       attrs.push({ name: attr.name, value: attr.value });
-//     }
-//   }
+  const attrs = [];
+  for (const attr of part.attributes) {
+    if (attr.name.startsWith("data-") || attr.name.startsWith("aria-")) {
+      attrs.push({ name: attr.name, value: attr.value });
+    }
+  }
 
-//   return {
-//     part: name,
-//     cssText: part.style.cssText,
-//     hasFocus: part === document.activeElement,
-//     attrs,
-//   };
-// };
+  return {
+    part: name,
+    cssText: part.style.cssText,
+    hasFocus: part === document.activeElement,
+    attrs,
+  };
+};
 
 export const restoreAttributes = (root: HTMLElement, attributeMaps: AttributeCache[]) => {
   for (const attributeMap of attributeMaps) {

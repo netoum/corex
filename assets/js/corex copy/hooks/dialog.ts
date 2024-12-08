@@ -1,8 +1,8 @@
-import * as dialog from "@zag-js/dialog";
+import * as dialog from "../@zag-js/dialog";
 import { getOption, getBooleanOption, normalizeProps, renderPart } from "./util";
 import { Component } from "./component";
 import type{ ViewHook } from "phoenix_live_view";
-import type { Machine } from "@zag-js/core";
+import type { Machine } from "../@zag-js/core";
 
 type Role = "dialog" | "alertdialog" | undefined;
 
