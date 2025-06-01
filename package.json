@@ -1,0 +1,117 @@
+{
+  "name": "@netoum/corex",
+  "version": "0.0.1",
+  "description": "Accessible and unstyled UI components in Vanilla JavaScript. An implementation of ZagJS for building modern and flexible web interfaces.",
+  "license": "MIT",
+  "type": "module",
+  "main": "./dist/index.cjs.js",
+  "module": "./dist/index.mjs",
+  "unpkg": "./dist/index.min.js",
+  "jsdelivr": "./dist/index.min.js",
+  "exports": {
+    ".": {
+      "import": "./dist/index.mjs",
+      "types": "./dist/index.d.ts"
+    },
+    "./lib": {
+      "import": "./dist/lib/index.mjs",
+      "types": "./dist/lib/index.d.ts"
+    },
+    "./accordion": {
+      "import": "./dist/components/accordion.mjs",
+      "types": "./dist/components/accordion.d.ts"
+    },
+    "./avatar": {
+      "import": "./dist/components/avatar.mjs",
+      "types": "./dist/components/avatar.d.ts"
+    },
+    "./checkbox": {
+      "import": "./dist/components/checkbox.mjs",
+      "types": "./dist/components/checkbox.d.ts"
+    },
+    "./clipboard": {
+      "import": "./dist/components/clipboard.mjs",
+      "types": "./dist/components/clipboard.d.ts"
+    },
+    "./collapsible": {
+      "import": "./dist/components/collapsible.mjs",
+      "types": "./dist/components/collapsible.d.ts"
+    },
+    "./dialog": {
+      "import": "./dist/components/dialog.mjs",
+      "types": "./dist/components/dialog.d.ts"
+    },
+    "./listbox": {
+      "import": "./dist/components/listbox.mjs",
+      "types": "./dist/components/listbox.d.ts"
+    },
+    "./menu": {
+      "import": "./dist/components/menu.mjs",
+      "types": "./dist/components/menu.d.ts"
+    },
+    "./switch": {
+      "import": "./dist/components/switch.mjs",
+      "types": "./dist/components/switch.d.ts"
+    },
+    "./switcher": {
+      "import": "./dist/components/switcher.mjs",
+      "types": "./dist/components/switcher.d.ts"
+    },
+    "./tabs": {
+      "import": "./dist/components/tabs.mjs",
+      "types": "./dist/components/tabs.d.ts"
+    },
+    "./toggle-group": {
+      "import": "./dist/components/toggle-group.mjs",
+      "types": "./dist/components/toggle-group.d.ts"
+    },
+    "./tree-view": {
+      "import": "./dist/components/tree-view.mjs",
+      "types": "./dist/components/tree-view.d.ts"
+    }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/corex/corex.git"
+  },
+  "author": "Netoum <info@netoum.com> (https://www.netoum.com)",
+  "files": [
+    "README.md",
+    "CHANGELOG.md",
+    "package.json",
+    "dist/*"
+  ],
+  "scripts": {
+    "build": "node esbuild.config.js",
+    "lint": "eslint . --max-warnings 0",
+    "check-types": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "@repo/eslint-config": "workspace:*",
+    "@repo/typescript-config": "workspace:*",
+    "esbuild": "^0.17.11",
+    "eslint": "^9.24.0",
+    "tsup": "^8.1.0",
+    "turbo": "^2.5.0",
+    "typescript": "5.8.2",
+    "fs-extra": "^11.3.0"
+  },
+  "dependencies": {
+    "@zag-js/core": "^1.14.0",
+    "@zag-js/store": "^1.14.0",
+    "@zag-js/types": "^1.14.0",
+    "@zag-js/utils": "^1.14.0",
+    "@zag-js/accordion": "^1.14.0",
+    "@zag-js/avatar": "^1.14.0",
+    "@zag-js/checkbox": "^1.14.0",
+    "@zag-js/clipboard": "^1.14.0",
+    "@zag-js/collapsible": "^1.14.0",
+    "@zag-js/dialog": "^1.14.0",
+    "@zag-js/listbox": "^1.14.0",
+    "@zag-js/menu": "^1.14.0",
+    "@zag-js/switch": "^1.14.0",
+    "@zag-js/tabs": "^1.14.0",
+    "@zag-js/toggle-group": "^1.14.0",
+    "@zag-js/tree-view": "^1.14.0"
+  }
+}

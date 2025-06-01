@@ -1,0 +1,38 @@
+# Node & pnpm
+node_modules/
+.pnpm/
+.pnpm-debug.log
+pnpm-debug.log*
+
+# Turborepo cache
+.turbo/
+turbo/
+.cache/
+
+# Build outputs
+dist/
+build/
+out/
+*.tsbuildinfo
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Env files
+.env
+.env.*.local
+
+# IDE/editor folders
+.vscode/
+.idea/
+*.sublime-workspace
+*.sublime-project
+
+# OS-specific files
+.DS_Store
+Thumbs.db
+
+# Testing / coverage
+coverage/
