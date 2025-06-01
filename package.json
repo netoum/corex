@@ -72,7 +72,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/corex/corex.git"
+    "url": "git://github.com/netoum/corex.git"
   },
   "author": "Netoum <info@netoum.com> (https://www.netoum.com)",
   "files": [
