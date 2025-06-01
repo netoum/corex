@@ -1,6 +1,6 @@
 {
   "name": "@netoum/corex",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Accessible and unstyled UI components in Vanilla JavaScript. An implementation of ZagJS for building modern and flexible web interfaces.",
   "license": "MIT",
   "type": "module",
