@@ -54,7 +54,7 @@ export class TreeView extends Component<treeView.Props, treeView.Api> {
   initMachine(props: treeView.Props): VanillaMachine<any> {
     return new VanillaMachine(treeView.machine, props);
   }
-  initApi() : treeView.Api {
+  initApi(): treeView.Api {
     return treeView.connect(this.machine.service, normalizeProps);
   }
   render() {

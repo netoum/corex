@@ -5,7 +5,7 @@ export class ToggleGroup extends Component<toggleGroup.Props, toggleGroup.Api> {
   initMachine(props: toggleGroup.Props): VanillaMachine<any> {
     return new VanillaMachine(toggleGroup.machine, props);
   }
-  initApi() : toggleGroup.Api {
+  initApi(): toggleGroup.Api {
     return toggleGroup.connect(this.machine.service, normalizeProps);
   }
   render() {
@@ -13,6 +13,14 @@ export class ToggleGroup extends Component<toggleGroup.Props, toggleGroup.Api> {
     for (const part of parts) renderPart(this.el, part, this.api);
     const items = ["item"];
     for (const item of items) renderItem(this.el, item, this.api);
+
+    this.el.addEventListener("toggle-group:set-value", (event) => {
+      const { value } = (event as CustomEvent<{ value: string[] }>).detail;
+      const currentValue = this.api.value;
+      if (JSON.stringify(currentValue) !== JSON.stringify(value)) {
+        this.api.setValue(value);
+      }
+    });
   }
 }
 export function initializeToggleGroup(): void {

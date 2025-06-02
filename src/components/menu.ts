@@ -5,7 +5,7 @@ export class Menu extends Component<menu.Props, menu.Api> {
   initMachine(props: menu.Props): VanillaMachine<any> {
     return new VanillaMachine(menu.machine, props);
   }
-  initApi() : menu.Api {
+  initApi(): menu.Api {
     return menu.connect(this.machine.service, normalizeProps);
   }
   render() {
@@ -13,6 +13,16 @@ export class Menu extends Component<menu.Props, menu.Api> {
     for (const part of parts) renderPart(this.el, part, this.api);
     const items = ["item", "item-group", "item-group-label"];
     for (const item of items) renderItem(this.el, item, this.api);
+    document.querySelectorAll(`[data-open-menu="${this.el.id}"]`).forEach((el) => {
+      el.addEventListener("click", () => this.api.open || this.api.setOpen(true));
+    });
+    document.querySelectorAll(`[data-close-menu="${this.el.id}"]`).forEach((el) => {
+      el.addEventListener("click", () => this.api.open && this.api.setOpen(false));
+    });
+    this.el.addEventListener("menu:set-open", (event) => {
+      const { value } = (event as CustomEvent<{ value: boolean }>).detail;
+      if (this.api.open !== value) this.api.setOpen(value);
+    });
   }
 }
 export function initializeMenu(): void {

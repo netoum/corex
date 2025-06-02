@@ -5,22 +5,21 @@ export class Dialog extends Component<dialog.Props, dialog.Api> {
   initMachine(props: dialog.Props): VanillaMachine<any> {
     return new VanillaMachine(dialog.machine, props);
   }
-  initApi() : dialog.Api {
+  initApi(): dialog.Api {
     return dialog.connect(this.machine.service, normalizeProps);
   }
   render() {
     const parts = ["content", "title", "trigger", "backdrop", "positioner", "description", "close-trigger"];
     for (const part of parts) renderPart(this.el, part, this.api);
     document.querySelectorAll(`[data-open-dialog="${this.el.id}"]`).forEach((el) => {
-      el.addEventListener("click", () => this.api.setOpen(true));
+      el.addEventListener("click", () => this.api.open || this.api.setOpen(true));
     });
     document.querySelectorAll(`[data-close-dialog="${this.el.id}"]`).forEach((el) => {
-      el.addEventListener("click", () => this.api.setOpen(false));
+      el.addEventListener("click", () => this.api.open && this.api.setOpen(false));
     });
     this.el.addEventListener("dialog:set-open", (event) => {
-      console.log(event)
       const { value } = (event as CustomEvent<{ value: boolean }>).detail;
-      this.api.setOpen(value);
+      if (this.api.open !== value) this.api.setOpen(value);
     });
   }
 }

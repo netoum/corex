@@ -12,17 +12,26 @@ export class Checkbox extends Component<checkbox.Props, checkbox.Api> {
     const parts = ["root", "label", "control", "indicator", "hidden-input"];
     for (const part of parts) renderPart(this.el, part, this.api);
     document.querySelectorAll(`[data-check-checkbox="${this.el.id}"]`).forEach((el) => {
-      el.addEventListener("click", () => this.api.setChecked(true));
+      el.addEventListener("click", () => {
+        if (this.api.checked !== true) {
+          this.api.setChecked(true);
+        }
+      });
     });
+
     document.querySelectorAll(`[data-uncheck-checkbox="${this.el.id}"]`).forEach((el) => {
-      el.addEventListener("click", () => this.api.setChecked(false));
+      el.addEventListener("click", () => {
+        if (this.api.checked !== false) {
+          this.api.setChecked(false);
+        }
+      });
     });
-    document.querySelectorAll(`[data-uncheck-checkbox="${this.el.id}"]`).forEach((el) => {
-      el.addEventListener("click", () => this.api.setChecked(false));
-    });
+
     this.el.addEventListener("checkbox:set-checked", (event) => {
       const { value } = (event as CustomEvent<{ value: boolean | "indeterminate" }>).detail;
-      this.api.setChecked(value);
+      if (this.api.checked !== value) {
+        this.api.setChecked(value);
+      }
     });
   }
 }
