@@ -6,7 +6,7 @@ export class Switcher extends Component<toggleGroup.Props, toggleGroup.Api> {
   initMachine(props: toggleGroup.Props): VanillaMachine<any> {
     return new VanillaMachine(toggleGroup.machine, props);
   }
-  initApi() : toggleGroup.Api {
+  initApi(): toggleGroup.Api {
     return toggleGroup.connect(this.machine.service, normalizeProps);
   }
   render() {
@@ -15,14 +15,13 @@ export class Switcher extends Component<toggleGroup.Props, toggleGroup.Api> {
     const items = ["item"];
     for (const item of items) renderItem(this.el, item, this.api);
 
-    // this.el.addEventListener("switcher:set-value", (event) => {
-    //   const currentValue = this.api.value;
-    //   const { value } = (event as CustomEvent<{ value: string[] }>).detail;
-      
-    //   if (JSON.stringify(currentValue) !== JSON.stringify(value)) {
-    //     this.api.setValue(value);
-    //   }
-    // });
+    this.el.addEventListener("switcher:set-value", (event) => {
+      const { value } = (event as CustomEvent<{ value: string[] }>).detail;
+      const currentValue = this.api.value;
+      if (JSON.stringify(currentValue) !== JSON.stringify(value)) {
+        this.api.setValue(value);
+      }
+    });
   }
 }
 export function initializeSwitcher(): void {
@@ -33,14 +32,14 @@ export function initializeSwitcher(): void {
     const storedValue = localStorage.getItem(key);
     const fallbackValue = getString(rootEl, "defaultValue") || "";
     const initialValue = storedValue || fallbackValue;
-    
+
     if (key && initialValue) {
       document.documentElement.setAttribute(`data-${key}`, initialValue);
     }
 
     const switcher = new Switcher(rootEl, {
       id: generateId(rootEl, "switcher"),
-      defaultValue: [initialValue], 
+      defaultValue: [initialValue],
       deselectable: false,
       multiple: false,
       dir: getString<Direction>(rootEl, "dir", directions),
@@ -53,7 +52,7 @@ export function initializeSwitcher(): void {
           localStorage.setItem(key, details.value[0]);
           document.documentElement.setAttribute(`data-${key}`, details.value[0]);
         }
-    
+
         const eventName = getString(rootEl, "onValueChange");
         if (eventName) {
           rootEl.dispatchEvent(new CustomEvent(eventName, { detail: details }));

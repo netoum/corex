@@ -5,7 +5,7 @@ export class Accordion extends Component<accordion.Props, accordion.Api> {
   initMachine(props: accordion.Props): VanillaMachine<any> {
     return new VanillaMachine(accordion.machine, props);
   }
-  initApi() : accordion.Api {
+  initApi(): accordion.Api {
     return accordion.connect(this.machine.service, normalizeProps);
   }
   render() {
@@ -13,6 +13,13 @@ export class Accordion extends Component<accordion.Props, accordion.Api> {
     for (const part of parts) renderPart(this.el, part, this.api);
     const items = ["item", "item-trigger", "item-indicator", "item-content"];
     for (const item of items) renderItem(this.el, item, this.api);
+    this.el.addEventListener("accordion:set-value", (event) => {
+      const { value } = (event as CustomEvent<{ value: string[] }>).detail;
+      const currentValue = this.api.value;
+      if (JSON.stringify(currentValue) !== JSON.stringify(value)) {
+        this.api.setValue(value);
+      }
+    });
   }
 }
 export function initializeAccordion(): void {

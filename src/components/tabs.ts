@@ -5,7 +5,7 @@ export class Tabs extends Component<tabs.Props, tabs.Api> {
   initMachine(props: tabs.Props): VanillaMachine<any> {
     return new VanillaMachine(tabs.machine, props);
   }
-  initApi() : tabs.Api {
+  initApi(): tabs.Api {
     return tabs.connect(this.machine.service, normalizeProps);
   }
   render() {
@@ -13,6 +13,13 @@ export class Tabs extends Component<tabs.Props, tabs.Api> {
     for (const part of parts) renderPart(this.el, part, this.api);
     const items = ["trigger", "content"];
     for (const item of items) renderItem(this.el, item, this.api);
+    this.el.addEventListener("tabs:set-value", (event) => {
+      const { value } = (event as CustomEvent<{ value: string }>).detail;
+      const currentValue = this.api.value;
+      if (currentValue !== value) {
+        this.api.setValue(value);
+      }
+    });
   }
 }
 export function initializeTabs(): void {

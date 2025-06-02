@@ -11,14 +11,14 @@ export class Collapsible extends Component<collapsible.Props, collapsible.Api> {
     const parts = ["root", "trigger", "content", "indicator"];
     for (const part of parts) renderPart(this.el, part, this.api);
     document.querySelectorAll(`[data-open-collapsible="${this.el.id}"]`).forEach((el) => {
-      el.addEventListener("click", () => this.api.setOpen(true));
+      el.addEventListener("click", () => this.api.open || this.api.setOpen(true));
     });
     document.querySelectorAll(`[data-close-collapsible="${this.el.id}"]`).forEach((el) => {
-      el.addEventListener("click", () => this.api.setOpen(false));
+      el.addEventListener("click", () => this.api.open && this.api.setOpen(false));
     });
     this.el.addEventListener("collapsible:set-open", (event) => {
       const { value } = (event as CustomEvent<{ value: boolean }>).detail;
-      this.api.setOpen(value);
+      if (this.api.open !== value) this.api.setOpen(value);
     });
   }
 }

@@ -4,7 +4,7 @@ export class Clipboard extends Component<clipboard.Props, clipboard.Api> {
   initMachine(props: clipboard.Props): VanillaMachine<any> {
     return new VanillaMachine(clipboard.machine, props);
   }
-  initApi() : clipboard.Api {
+  initApi(): clipboard.Api {
     return clipboard.connect(this.machine.service, normalizeProps);
   }
   render() {

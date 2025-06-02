@@ -12,14 +12,26 @@ export class ZagSwitch extends Component<zagSwitch.Props, zagSwitch.Api> {
     const parts = ["root", "label", "control", "thumb", "hidden-input"];
     for (const part of parts) renderPart(this.el, part, this.api);
     document.querySelectorAll(`[data-check-switch="${this.el.id}"]`).forEach((el) => {
-      el.addEventListener("click", () => this.api.setChecked(true));
+      el.addEventListener("click", () => {
+        if (this.api.checked !== true) {
+          this.api.setChecked(true);
+        }
+      });
     });
+
     document.querySelectorAll(`[data-uncheck-switch="${this.el.id}"]`).forEach((el) => {
-      el.addEventListener("click", () => this.api.setChecked(false));
+      el.addEventListener("click", () => {
+        if (this.api.checked !== false) {
+          this.api.setChecked(false);
+        }
+      });
     });
+
     this.el.addEventListener("switch:set-checked", (event) => {
       const { value } = (event as CustomEvent<{ value: boolean }>).detail;
-      this.api.setChecked(value);
+      if (this.api.checked !== value) {
+        this.api.setChecked(value);
+      }
     });
   }
 }
@@ -39,7 +51,7 @@ export function initializezagSwitch(): void {
       readOnly: getBoolean(rootEl, "readOnly"),
       form: getString(rootEl, "form"),
       value: getString(rootEl, "value"),
-      onCheckedChange(details : any) {
+      onCheckedChange(details: any) {
         const eventName = getString(rootEl, "onCheckedChange");
         if (eventName) {
           rootEl.dispatchEvent(new CustomEvent(eventName, { detail: details }));

@@ -1,5 +1,19 @@
 # 📦 Changelog – @netoum/corex
 
+## [0.0.2] – 2025-06-02
+
+- Add new and fixed current event listener for :
+  - Accordion
+  - Checkbox
+  - Collapsible
+  - Dialog
+  - Menu
+  - Switch
+  - Switcher
+  - Tabs
+  - Toggle Group  
+---
+
 ## [0.0.1] – 2025-06-01
 
 🎉 Initial release of Corex!

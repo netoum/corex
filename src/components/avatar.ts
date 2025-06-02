@@ -6,7 +6,7 @@ export class Avatar extends Component<avatar.Props, avatar.Api> {
   initMachine(props: avatar.Props): VanillaMachine<any> {
     return new VanillaMachine(avatar.machine, props);
   }
-  initApi() : avatar.Api {
+  initApi(): avatar.Api {
     return avatar.connect(this.machine.service, normalizeProps);
   }
   render() {

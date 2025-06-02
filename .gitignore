@@ -36,3 +36,5 @@ Thumbs.db
 
 # Testing / coverage
 coverage/
+
+*.tgz

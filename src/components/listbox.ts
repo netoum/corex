@@ -24,7 +24,7 @@ export class Listbox extends Component<listbox.Props, listbox.Api> {
   initMachine(props: listbox.Props): VanillaMachine<any> {
     return new VanillaMachine(listbox.machine, props)
   }
-  initApi() : listbox.Api {
+  initApi(): listbox.Api {
     return listbox.connect(this.machine.service, normalizeProps)
   }
   render() {
