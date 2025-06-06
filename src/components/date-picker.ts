@@ -1,7 +1,7 @@
 import * as datePicker from "@zag-js/date-picker";
 import { Direction } from "@zag-js/types";
 import { Component, VanillaMachine, getString, generateId, normalizeProps, renderPart, getNumber, getStringList, spreadProps, getBoolean } from "../lib"
-import { isWeekend, DateFormatter } from "@internationalized/date"
+import { isWeekend, DateFormatter, today, getLocalTimeZone } from "@internationalized/date"
 export class DatePicker extends Component<datePicker.Props, datePicker.Api> {
   initMachine(props: datePicker.Props): VanillaMachine<any> {
     return new VanillaMachine(datePicker.machine, props);
@@ -365,6 +365,7 @@ export function initializeDatePicker(): void {
     const valueStrings = getStringList(rootEl, "value");
     const defaultFocusedValueStrings = getString(rootEl, "defaultFocusedValue");
     const focusedValueStrings = getString(rootEl, "focusedValue");
+
     const datePickerComponent = new DatePicker(rootEl, {
       id: generateId(rootEl, "datePicker"),
       locale: getString(rootEl, "locale"),
@@ -397,8 +398,20 @@ export function initializeDatePicker(): void {
           }).format(jsDate);
         }
         : undefined,
-      max: getString(rootEl, "max") ? datePicker.parse(getString(rootEl, "max")!) : undefined,
-      min: getString(rootEl, "min") ? datePicker.parse(getString(rootEl, "min")!) : undefined,
+
+      max: (() => {
+        const value = getString(rootEl, "max");
+        if (value === "today") return today(getLocalTimeZone());
+        if (value) return datePicker.parse(value);
+        return undefined;
+      })(),
+      min: (() => {
+        const value = getString(rootEl, "min");
+        if (value === "today") return today(getLocalTimeZone());
+        if (value) return datePicker.parse(value);
+        return undefined;
+      })(),
+
       name: getString(rootEl, "name"),
       open: getBoolean(rootEl, "open"),
       numOfMonths: getNumber(rootEl, "numOfMonths"),
