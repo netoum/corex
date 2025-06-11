@@ -1,5 +1,34 @@
 # 📦 Changelog – @netoum/corex
 
+## [0.0.4] – 2025-06-11
+
+### ✨ Added
+
+- Implementations of the following components:
+  - Combobox
+  - Site Search
+  - Date Picker Range
+  
+- Fix Listbox
+  
+---
+
+## [0.0.3] – 2025-06-05
+
+### ✨ Added
+
+- Implementations of the following components:
+  - Code
+  - Date Picker
+  - Scrollbar
+  - Timer
+  - Typo
+  
+- Fix Line Height semantic tokens
+- Fix components sizing
+- 
+---
+
 ## [0.0.2] – 2025-06-02
 
 - Add new and fixed current event listener for :

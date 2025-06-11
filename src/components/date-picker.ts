@@ -1,6 +1,6 @@
 import * as datePicker from "@zag-js/date-picker";
 import { Direction } from "@zag-js/types";
-import { Component, VanillaMachine, getString, generateId, normalizeProps, renderPart, getNumber, getStringList, spreadProps, getBoolean } from "../lib"
+import { Component, VanillaMachine, getString, generateId, normalizeProps, renderPart, renderItem, getNumber, getStringList, spreadProps, getBoolean } from "../lib"
 import { isWeekend, DateFormatter, today, getLocalTimeZone } from "@internationalized/date"
 export class DatePicker extends Component<datePicker.Props, datePicker.Api> {
   initMachine(props: datePicker.Props): VanillaMachine<any> {
@@ -40,15 +40,22 @@ export class DatePicker extends Component<datePicker.Props, datePicker.Api> {
     for (const part of parts) {
       renderPart(this.el, part, this.api);
     }
+
+    const items = [
+      "input"
+    ];
+    for (const item of items) {
+      renderItem(this.el, item, this.api);
+    }
     
        
     this.renderDayTableHeader();
     this.renderDayTableBody();
     const dayItems = [
-      { name: "view-control", view: "year" },
-      { name: "view-trigger", view: null },
-      { name: "next-trigger", view: null },
-      { name: "prev-trigger", view: null },
+      { name: "view-control", view: "day" },
+      { name: "view-trigger", view: "day" },
+      { name: "next-trigger", view: "day" },
+      { name: "prev-trigger", view: "day" },
       { name: "table", view: "day" },
       { name: "table-header", view: "day" },
       { name: "table-body", view: "day" },
@@ -61,7 +68,7 @@ export class DatePicker extends Component<datePicker.Props, datePicker.Api> {
       { name: "view-trigger", view: "month" },
       { name: "next-trigger", view: "month" },
       { name: "prev-trigger", view: "month" },
-      { name: "table", view: "month", columns: 4 },
+      { name: "table", view: "month", columns: getNumber(this.el, "columns") || 4},
       { name: "table-body", view: "month" },
     ];
     for (const item of monthItems) {
@@ -69,15 +76,15 @@ export class DatePicker extends Component<datePicker.Props, datePicker.Api> {
     }
     this.renderMonthTableBody();
     const yearItems = [
-      { name: "view-control", view: "month" },
-      { name: "view-trigger", view: "month" },
-      { name: "next-trigger", view: "month" },
-      { name: "prev-trigger", view: "month" },
-      { name: "table", view: "month", columns: 4 },
-      { name: "table-body", view: "month" },
+      { name: "view-control", view: "year" },
+      { name: "view-trigger", view: "year" },
+      { name: "next-trigger", view: "year" },
+      { name: "prev-trigger", view: "year" },
+      { name: "table", view: "year", columns: getNumber(this.el, "columns") || 4 },
+      { name: "table-body", view: "year" },
     ];
-    for (const item of yearItems) {
-      this.renderYearView(item.name, item.view, item.columns ?? null);
+    for (const yearitem of yearItems) {
+      this.renderYearView(yearitem.name, yearitem.view, yearitem.columns ?? null);
     }
     this.renderYearTableBody();
     this.updateViewVisibility();
@@ -117,14 +124,6 @@ export class DatePicker extends Component<datePicker.Props, datePicker.Api> {
           props = view ? this.api.getTableBodyProps({ view } as any) : null;
           break;
         }
-        default: {
-          const methodName = `get${this.toCamelCase(itemName)}Props` as keyof typeof this.api;
-          const method = this.api[methodName];
-          if (typeof method === 'function') {
-            props = view ? (method as any)({ view }) : (method as any)();
-          }
-          break;
-        }
       }
       if (props) {
         spreadProps(element as HTMLElement, props);
@@ -162,14 +161,6 @@ export class DatePicker extends Component<datePicker.Props, datePicker.Api> {
           props = view ? this.api.getTableBodyProps({ view, columns } as any) : null;
           break;
         }
-        default: {
-          const methodName = `get${this.toCamelCase(itemName)}Props` as keyof typeof this.api;
-          const method = this.api[methodName];
-          if (typeof method === 'function') {
-            props = view ? (method as any)({ view }) : (method as any)();
-          }
-          break;
-        }
       }
       if (props) {
         spreadProps(element as HTMLElement, props);
@@ -204,14 +195,6 @@ export class DatePicker extends Component<datePicker.Props, datePicker.Api> {
         }
         case "table-body": {
           props = view ? this.api.getTableBodyProps({ view, columns } as any) : null;
-          break;
-        }
-        default: {
-          const methodName = `get${this.toCamelCase(itemName)}Props` as keyof typeof this.api;
-          const method = this.api[methodName];
-          if (typeof method === 'function') {
-            props = view ? (method as any)({ view }) : (method as any)();
-          }
           break;
         }
       }
@@ -257,11 +240,6 @@ export class DatePicker extends Component<datePicker.Props, datePicker.Api> {
     });
   }
 
-  private toCamelCase(str: string): string {
-    return str.replace(/(^|-)([a-z])/g, (prefix, letter) => {
-      return prefix === "" ? letter.toUpperCase() : letter.toUpperCase();
-    });
-  }
   private renderDayTableHeader() {
     const tableHeader = this.el.querySelector('.date-picker__day-view [data-part="table-header"]');
     if (!tableHeader || !this.api.weekDays) return;
@@ -308,7 +286,7 @@ export class DatePicker extends Component<datePicker.Props, datePicker.Api> {
     const tableBody = this.el.querySelector('.date-picker__month-view [data-part="table-body"]');
     if (!tableBody) return;
     tableBody.innerHTML = "";
-    this.api.getMonthsGrid({ columns: 4, format: "short" }).forEach((months: any, row: any) => {
+    this.api.getMonthsGrid({ columns: getNumber(this.el, "columns") || 4, format: getString(this.el, "month-format") || "short" }).forEach((months: any, row: any) => {
       const tr = document.createElement("tr");
       tr.setAttribute("key", row);
       const tableRowProps = this.api.getTableRowProps({ view: "month" });
@@ -332,7 +310,7 @@ export class DatePicker extends Component<datePicker.Props, datePicker.Api> {
     const tableBody = this.el.querySelector('.date-picker__year-view [data-part="table-body"]');
     if (!tableBody) return;
     tableBody.innerHTML = "";
-    this.api.getYearsGrid({ columns: 4 }).forEach((years: any, row: any) => {
+    this.api.getYearsGrid({ columns: getNumber(this.el, "columns") || 4 }).forEach((years: any, row: any) => {
       const tr = document.createElement("tr");
       tr.setAttribute("key", row);
       const tableRowProps = this.api.getTableRowProps({ view: "year" });
@@ -340,11 +318,11 @@ export class DatePicker extends Component<datePicker.Props, datePicker.Api> {
       years.forEach((year: any, yearIndex: any) => {
         const td = document.createElement("td");
         td.setAttribute("key", yearIndex.toString());
-        const cellProps = this.api.getYearTableCellProps({ value: year.value, columns: 4 });
+        const cellProps = this.api.getYearTableCellProps({ value: year.value, columns: getNumber(this.el, "columns") || 4 });
         spreadProps(td, cellProps);
         const div = document.createElement("div");
         div.textContent = year.label.toString();
-        const triggerProps = this.api.getYearTableCellTriggerProps({ value: year.value, columns: 4 });
+        const triggerProps = this.api.getYearTableCellTriggerProps({ value: year.value, columns: getNumber(this.el, "columns") || 4 });
         spreadProps(div, triggerProps);
         td.appendChild(div);
         tr.appendChild(td);
