@@ -4,10 +4,12 @@ import { Checkbox } from "./components/checkbox";
 import { Clipboard } from "./components/clipboard";
 import { Code }  from "./components/code";
 import { Collapsible } from "./components/collapsible";
+import { Combobox } from "./components/combobox";
 import { DatePicker } from "./components/date-picker";
 import { Dialog } from "./components/dialog";
 import { Listbox } from "./components/listbox";
 import { Menu } from "./components/menu";
+import { SiteSearch } from "./components/site-search";
 import { ZagSwitch } from "./components/switch";
 import { Switcher } from "./components/switcher";
 import { Tabs } from "./components/tabs";
@@ -15,4 +17,4 @@ import { Timer } from "./components/timer";
 import { ToggleGroup } from "./components/toggle-group";
 import { TreeView } from "./components/tree-view";
 
-export { Accordion, Avatar, Checkbox, Clipboard, Code, Collapsible, DatePicker, Dialog, Listbox, Menu, Switcher, Tabs, Timer, ToggleGroup, TreeView, ZagSwitch };
+export { Accordion, Avatar, Checkbox, Clipboard, Code, Collapsible, Combobox, DatePicker, Dialog, Listbox, Menu, SiteSearch, Switcher, Tabs, Timer, ToggleGroup, TreeView, ZagSwitch };

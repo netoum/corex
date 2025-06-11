@@ -5,28 +5,43 @@ interface ListboxItem {
   label: string
   value: string
 }
-function buildListFromDOM(root: HTMLElement): ListboxItem[] {
-  const items: ListboxItem[] = []
-  const itemEls = root.querySelectorAll<HTMLElement>('[data-part="item"]')
-  itemEls.forEach((el) => {
-    const value = el.getAttribute("data-value")
-    if (!value) return
-    const label =
-      el.getAttribute("data-label")
-    if (!label) return
-    items.push({ label, value })
-  })
-  return items
+type Item = { label: string; value: string };
+
+function getDomItems(rootEl: HTMLElement): Array<{ label: string; value: string }> {
+  const items: Array<{ label: string; value: string }> = [];
+  rootEl.querySelectorAll('[data-part="item"]').forEach((el) => {
+    const label = el.getAttribute("data-label") || el.textContent?.trim() || "";
+    const value = el.getAttribute("data-value") || "";
+    items.push({ label, value });
+  });
+  return items;
 }
+
 export class Listbox extends Component<listbox.Props, listbox.Api> {
   collection!: listbox.ListCollection<ListboxItem>;
   items: ListboxItem[] = []
+  getCollection(items: Item[]): listbox.ListCollection<ListboxItem> {
+    return listbox.collection({
+      items,
+      itemToValue: (item) => item.value,
+      itemToString: (item) => item.label,
+    });
+  }
   initMachine(props: listbox.Props): VanillaMachine<any> {
-    return new VanillaMachine(listbox.machine, props)
+    const self = this;
+  
+    return new VanillaMachine(listbox.machine, {
+      ...props,
+      get collection() {
+        return self.getCollection(self.items || []);
+      },
+    }
+    )
   }
   initApi(): listbox.Api {
     return listbox.connect(this.machine.service, normalizeProps)
   }
+
   render() {
     const parts = ["root", "label", "content"]
     for (const part of parts) renderPart(this.el, part, this.api)
@@ -38,7 +53,7 @@ export class Listbox extends Component<listbox.Props, listbox.Api> {
 }
 export function initializeListbox(): void {
   document.querySelectorAll<HTMLElement>(".listbox-js").forEach((rootEl) => {
-    const data = buildListFromDOM(rootEl)
+    const data = getDomItems(rootEl)
     const collection = getNumber(rootEl, "columnCount")
       ? listbox.gridCollection<ListboxItem>({
         items: data,
