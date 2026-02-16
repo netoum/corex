@@ -1,3 +1,5 @@
+> This repository has been archived in favor of [Corex UI](https://github.com/corex-ui)
+
 # @netoum/corex
 
 Accessible and unstyled UI components in Vanilla JavaScript — a flexible and modern implementation of [ZagJS](https://zagjs.com), designed to help you build accessible UI logic independently of styling.
